@@ -10,5 +10,5 @@ jobs:
       - run:
           name: The First Step
           command: |
-            npm install cypress --save-dev
+            echo 'Hello World!'
             echo 'This is the delivery pipeline'
