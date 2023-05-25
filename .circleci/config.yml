@@ -65,7 +65,7 @@ jobs:
                   "fields": [
                     {
                       "type": "plain_text",
-                      "text": "*This is a text notification*",
+                      "text": "*congratulation, you got the slack message*",
                       "emoji": true
                     }
                   ]
