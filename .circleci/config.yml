@@ -51,8 +51,6 @@ jobs:
           name: Approval Complete
           command: |
             echo 'The work is now complete.'
-  ##      
-
 workflows:
   Example-Workflow:
     jobs:
@@ -71,6 +69,5 @@ workflows:
       - Now-Complete:
           requires:
             - Hold-for-Approval
-      # notify:
-       #   requires:
+     
             
