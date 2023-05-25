@@ -1,26 +1,27 @@
----
 version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
 jobs:
+  # running commands on a basic image
   Hello-World:
     docker:
       - image: alpine:3.15
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
           name: Saying Hello
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
+  # fetching code from the repo
   Fetch-Code:
     docker:
       - image: cimg/base:2021.04
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
       - run:
@@ -28,12 +29,13 @@ jobs:
           command: |
             ls -al
             echo '^^^Your repo files^^^'
+  # running a node container
   Using-Node:
     docker:
       - image: cimg/node:17.2
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
           name: Running the Node Container
@@ -44,7 +46,7 @@ jobs:
       - image: alpine:3.15
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
           name: Approval Complete
@@ -52,10 +54,10 @@ jobs:
             echo 'The work is now complete.'
   notify:
     docker:
-      - image: cimg/base:stable
+      - image: 'cimg/base:stable'
         auth:
           username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - slack/notify:
           custom: |
@@ -73,7 +75,8 @@ jobs:
                 }
               ]
             }
-          event: always
+          event: always        
+
 workflows:
   Example-Workflow:
     jobs:
@@ -93,6 +96,6 @@ workflows:
           requires:
             - Hold-for-Approval
       - notify:
-          context: slack-secrets
-          require:
-            - Now-Complete
+          requires:
+             - Now-Complete
+             
