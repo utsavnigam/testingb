@@ -46,4 +46,12 @@ workflows:
             - Hello-World
       - Using-Node:
           requires:
-            - Fetch-Code                  
+            - Fetch-Code 
+      - Hold-for-Approval:
+          type: approval
+          requires:
+            - Using-Node
+            - Fetch-Code
+      - Now-Complete:
+          requires:
+            - Hold-for-Approval                       
