@@ -77,7 +77,7 @@ jobs:
 workflows:
   Example-Workflow:
     jobs:
-      - Hello-World: null
+      - Hello-World:
       - Fetch-Code:
           requires:
             - Hello-World
