@@ -7,7 +7,7 @@ jobs:
       - image: alpine:3.15
         auth:
           username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD
     steps:
       - run:
           name: Saying Hello
@@ -19,7 +19,7 @@ jobs:
       - image: cimg/base:2021.04
         auth:
           username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
       - run:
@@ -32,7 +32,7 @@ jobs:
       - image: cimg/node:17.2
         auth:
           username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD
     steps:
       - run:
           name: Running the Node Container
@@ -43,7 +43,7 @@ jobs:
       - image: alpine:3.15
         auth:
           username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var referenc
+          password: $DOCKERHUB_PASSWORD
     steps:
       - run:
           name: Approval Complete
@@ -51,10 +51,10 @@ jobs:
             echo 'The work is now complete.'
   notify:
     docker:
-      - image: 'cimg/base:stable'
+      - image: cimg/base:stable
         auth:
           username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+          password: $DOCKERHUB_PASSWORD
     steps:
       - slack/notify:
           custom: |
@@ -72,10 +72,9 @@ jobs:
                 }
               ]
             }
-          event: always     
-         command: |
-            echo 'Cong, you got the slack message'    
-
+          event: always
+        command: |
+          echo 'Cong, you got the slack message'    
 workflows:
   Example-Workflow:
     jobs:
@@ -97,6 +96,7 @@ workflows:
       - notify:
           requires:
             - Now-Complete
+
 
           
             
