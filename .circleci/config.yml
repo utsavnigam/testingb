@@ -72,9 +72,7 @@ jobs:
                 }
               ]
             }
-          event: always
-        command: |
-          echo 'Cong, you got the slack message'    
+          event: always 
 workflows:
   Example-Workflow:
     jobs:
