@@ -92,8 +92,8 @@ workflows:
       - Now-Complete:
           requires:
             - Hold-for-Approval
-      - notify
+      - notify:
           requires:
-          Now-Complete
+            - Now-Complete
           
             
