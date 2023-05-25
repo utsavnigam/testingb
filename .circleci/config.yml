@@ -37,7 +37,7 @@ jobs:
           name: Running the Node Container
           command: |
             node -v
-   steps:
+    steps:
       - run:
           name: Running the Node Container
           command: |
