@@ -72,7 +72,9 @@ jobs:
                 }
               ]
             }
-          event: always        
+          event: always     
+         command: |
+            echo 'Cong, you got the slack message'    
 
 workflows:
   Example-Workflow:
@@ -95,5 +97,6 @@ workflows:
       - notify:
           requires:
             - Now-Complete
+
           
             
