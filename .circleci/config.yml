@@ -6,7 +6,7 @@ jobs:
     docker:
       - image: alpine:3.15
         auth:
-          username: MYDOCKER_HUB
+          username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
@@ -18,7 +18,7 @@ jobs:
     docker:
       - image: cimg/base:2021.04
         auth:
-          username: MYDOCKER_HUB
+          username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - checkout
@@ -31,7 +31,7 @@ jobs:
     docker:
       - image: cimg/node:17.2
         auth:
-          username: MYDOCKER_HUB
+          username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - run:
@@ -42,7 +42,7 @@ jobs:
     docker:
       - image: alpine:3.15
         auth:
-          username: MYDOCKER_HUB
+          username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var referenc
     steps:
       - run:
@@ -53,7 +53,7 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
         auth:
-          username: MYDOCKER_HUB
+          username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     steps:
       - slack/notify:
