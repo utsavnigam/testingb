@@ -2,7 +2,6 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
 jobs:
-  # running commands on a basic image
   Hello-World:
     docker:
       - image: alpine:3.15
@@ -15,7 +14,6 @@ jobs:
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
-  # fetching code from the repo
   Fetch-Code:
     docker:
       - image: cimg/base:2021.04
