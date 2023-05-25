@@ -96,6 +96,6 @@ workflows:
           requires:
             - Hold-for-Approval
       - notify:
+          context: slack-secrets
           requires:
              - Now-Complete
-             
