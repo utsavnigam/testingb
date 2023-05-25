@@ -1,6 +1,5 @@
 version: 2.1
-orbs:
-  slack: circleci/slack@4.9.3
+#lack: circleci/slack@4.9.3
 jobs:
   # running commands on a basic image
   Hello-World:
@@ -52,30 +51,7 @@ jobs:
           name: Approval Complete
           command: |
             echo 'The work is now complete.'
-  notify:
-    docker:
-      - image: 'cimg/base:stable'
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always        
+  ##      
 
 workflows:
   Example-Workflow:
@@ -95,6 +71,6 @@ workflows:
       - Now-Complete:
           requires:
             - Hold-for-Approval
-      - notify:
-          requires:
+      # notify:
+       #   requires:
             
