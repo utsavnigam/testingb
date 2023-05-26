@@ -6,7 +6,7 @@ orbs:
 jobs:
   notify:
     docker:
-      - image: cimg/base:stable
+      - image: cypress/included:latest
         auth:
           username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD
@@ -38,7 +38,9 @@ workflows:
   Example-Workflow:
     jobs: 
       - cypress/run:
-         Yarn: true
+          cypress-command: npx cypress run --browser chrome
+          install-browsers: true
+          start-command: npm run start:dev
       - notify:
           requires:
             - cypress/run        
