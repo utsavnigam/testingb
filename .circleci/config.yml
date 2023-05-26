@@ -2,11 +2,18 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
   cypress: cypress-io/cypress@3.1.2
+  cypress/included:latest
 
 jobs:
-  notify:
+  cypress/run:
     docker:
       - image: cypress/included:latest
+        auth:
+          username: $MYDOCKER_HUB
+          password: $DOCKERHUB_PASSWORD
+  notify:
+    docker:
+      - image: cimg/base:stable
         auth:
           username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD
