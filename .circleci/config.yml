@@ -1,6 +1,8 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
+  cypress: cypress-io/cypress@3
+
 jobs:
   Hello-World:
     docker:
@@ -94,7 +96,12 @@ workflows:
             - Using-Node
       - notify:
           requires:
-            - Now-Complete
+            - Now-Complete 
+      - cypress/run # "run" job comes from "cypress" orb
+          start-command: 'npm run start'  
+      - notify:
+          requires:
+            - cypress/run        
 
           
             
