@@ -38,7 +38,7 @@ workflows:
   Example-Workflow:
     jobs: 
       - cypress/run:
-          start-command: npm run start
+          cypress-command: npx cypress run
       - notify:
           requires:
             - cypress/run        
