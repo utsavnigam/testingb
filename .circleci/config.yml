@@ -11,6 +11,8 @@ jobs:
           username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD
     steps:
+      - run: |
+          apt-get -y update; apt-get -y install curl
       - slack/notify:
           event: fail
           template: basic_fail_1
