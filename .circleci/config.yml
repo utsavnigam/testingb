@@ -38,7 +38,7 @@ workflows:
   Example-Workflow:
     jobs: 
       - cypress/run: # "run" job comes from "cypress" orb
-          start-command: 'npm run start'  
+          start-command: 'npm cypress run'  
       - notify:
           requires:
             - cypress/run        
