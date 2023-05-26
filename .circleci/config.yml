@@ -1,7 +1,7 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
-  cypress: cypress-io/cypress@3
+  cypress: cypress-io/cypress@3.1.2
 
 jobs:
   notify:
@@ -37,8 +37,8 @@ jobs:
 workflows:
   Example-Workflow:
     jobs: 
-      - cypress/run: # "run" job comes from "cypress" orb
-          start-command: 'npm cypress run'  
+      - cypress/run:
+           Yarn: true
       - notify:
           requires:
             - cypress/run        
