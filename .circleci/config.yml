@@ -38,9 +38,7 @@ workflows:
   Example-Workflow:
     jobs: 
       - cypress/run:
-          cypress-command: npx cypress run --browser chrome
-          install-browsers: true
-          start-command: npm run start:dev
+          start-command: npm run start
       - notify:
           requires:
             - cypress/run        
