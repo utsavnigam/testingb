@@ -7,10 +7,18 @@ jobs:
   notify:
     docker:
       - image: cypress/included:latest
-      - image: cimg/base:stable  
         auth:
           username: $MYDOCKER_HUB
           password: $DOCKERHUB_PASSWORD
+    steps: 
+      - cypress/run:
+          cypress-command: npx cypress run     
+  slack:
+    docker:
+      - image: cimg/base:stable
+        auth:
+          username: $MYDOCKER_HUB
+          password: $DOCKERHUB_PASSWORD        
     steps:
       - slack/notify:
           event: fail
@@ -38,11 +46,10 @@ jobs:
 workflows:
   Example-Workflow:
     jobs: 
-      - cypress/run:
-          cypress-command: npx cypress run
-      - notify:
+      - notify
+      - slack:
           requires:
-            - cypress/run        
+            - notify      
 
           
             
