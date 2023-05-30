@@ -1,47 +1,27 @@
 version: 2.1
 orbs:
-  slack: circleci/slack@4.9.3
-  cypress: cypress-io/cypress@3.1.2
-
+  cypress: cypress-io/cypress@1
+  slack: circleci/slack@4.1.1
 jobs:
-  notify:
-    docker:
-      - image: cypress/included:latest
-        auth:
-          username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD
+  build-test-and-notify:
+    executor:
+      name: cypress/base-14
     steps:
-      - run: |
-          apt-get -y update; apt-get -y install curl
-      # - slack/notify:
-      #     event: fail
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: success_tagged_deploy_1
+      - checkout
       - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*congratulation, you got the slack message*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+          color: "#42e2f4"
+          mentions: "hola,"
+          message: A custom message to notify the channel about the latest build
+      - slack/status:
+          fail_only: true
+          mentions: "hola"
 workflows:
-  Example-Workflow:
-    jobs: 
+  build-and-notify:
+    jobs:
       - cypress/run:
-          cypress-command: npx cypress run
-          post-install: 
-      - notify:
-          requires:
-            - cypress/run 
+          yarn: true
+          cache-key: 'yarn-packages-{{ arch }}-{{ checksum "yarn.lock" }}'
+          post-steps:
+            - store_test_results:
+                path: cypress/results
+      - build-test-and-notify
