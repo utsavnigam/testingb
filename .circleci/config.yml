@@ -4,44 +4,47 @@ orbs:
   cypress: cypress-io/cypress@3.1.2
 
 jobs:
-  notify:
-    docker:
-      - image: cypress/included:latest
-        auth:
-          username: $MYDOCKER_HUB
-          password: $DOCKERHUB_PASSWORD
-    steps:
-      - run: |
-          apt-get -y update; apt-get -y install curl
-      # - slack/notify:
-      #     event: fail
-      #     template: basic_fail_1
-      # - slack/notify:
-      #     event: pass
-      #     template: success_tagged_deploy_1
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*congratulation, you got the slack message*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always
+  # notify:
+  #   docker:
+  #     - image: cypress/included:latest
+  #       auth:
+  #         username: $MYDOCKER_HUB
+  #         password: $DOCKERHUB_PASSWORD
+  #   steps:
+  #     - run: |
+  #         apt-get -y update; apt-get -y install curl
+  #     # - slack/notify:
+  #     #     event: fail
+  #     #     template: basic_fail_1
+  #     # - slack/notify:
+  #     #     event: pass
+  #     #     template: success_tagged_deploy_1
+  #     - slack/notify:
+  #         custom: |
+  #           {
+  #             "blocks": [
+  #               {
+  #                 "type": "section",
+  #                 "fields": [
+  #                   {
+  #                     "type": "plain_text",
+  #                     "text": "*congratulation, you got the slack message*",
+  #                     "emoji": true
+  #                   }
+  #                 ]
+  #               }
+  #             ]
+  #           }
+  #         event: always
 workflows:
   Example-Workflow:
     jobs: 
       - cypress/run:
           cypress-command: npx cypress run
-          post-install: 
-      - notify:
-          requires:
-            - cypress/run 
+          post-steps: 
+           - slack/notify:
+               event: pass
+               template: success_tagged_deploy_1
+      # - notify:
+      #     requires:
+      #       - cypress/run 
