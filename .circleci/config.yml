@@ -13,7 +13,7 @@ jobs:
   #   steps:
   #     - run: |
   #         apt-get -y update; apt-get -y install curl
-      
+
   #     # - slack/notify:
   #     #     event: pass
   #     #     template: success_tagged_deploy_1
@@ -36,16 +36,13 @@ jobs:
   #         event: always
 workflows:
   Example-Workflow:
-    jobs: 
+    jobs:
       - cypress/run:
           cypress-command: npx cypress run
-          post-steps: 
-           - slack/notify:
-               event: pass
-               template: success_tagged_deploy_1
-           - slack/notify:
-               event: fail
-               template: basic_fail_1
-      # - notify:
-      #     requires:
-      #       - cypress/run 
+          post-steps:
+            - slack/notify:
+                event: pass
+                template: success_tagged_deploy_1
+            - slack/notify:
+                event: fail
+                template: basic_fail_1
